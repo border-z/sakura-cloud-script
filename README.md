@@ -27,9 +27,6 @@ SAKURA_DISK_NAME=bz-ai-server-disk
 SAKURA_DISK_SIZE_GB=250
 SAKURA_SOURCE_ARCHIVE_ID=113600510456
 SAKURA_DISK_PLAN_ID=4
-
-# Firewall Settings
-ALLOWED_IP=your_ip_address_here  # IP address allowed to access the server
 ```
 
 2. Install the required Python packages:
@@ -37,47 +34,6 @@ ALLOWED_IP=your_ip_address_here  # IP address allowed to access the server
 ```bash
 pip install requests python-dotenv
 ```
-
-## Firewall Security with ALLOWED_IP
-
-This project includes automatic firewall configuration using UFW (Uncomplicated Firewall) to restrict server access to specific IP addresses only. This is critical for security when running servers with public-facing services.
-
-### How the ALLOWED_IP Setting Works
-
-1. The `ALLOWED_IP` environment variable specifies which IP address is allowed to connect to your server.
-2. During server creation, this IP address is automatically injected into the startup script.
-3. When the server boots, it configures the UFW firewall to:
-   - Block all incoming connections by default
-   - Allow only connections from your specified IP address to ports 22 (SSH) and 11434 (Ollama)
-
-### Setting Your Allowed IP
-
-You can set the `ALLOWED_IP` in several ways:
-
-1. In your `.env` file (recommended for persistent settings):
-   ```
-   ALLOWED_IP=203.0.113.42
-   ```
-
-2. As an environment variable when running the script:
-   ```bash
-   ALLOWED_IP=203.0.113.42 python script.py server start
-   ```
-
-3. If you don't set the `ALLOWED_IP` variable, you'll need to manually edit the server_setup.sh script and replace the placeholder "replace_with_your_ip" with your actual IP address.
-
-### Finding Your IP Address
-
-You can find your current public IP address by visiting services like:
-- https://whatismyip.com/
-- https://ifconfig.me/ (or run `curl ifconfig.me` in your terminal)
-
-### Important Security Notes
-
-- Use your specific IP address (e.g., 203.0.113.42) rather than ranges when possible
-- If you need to allow multiple IP addresses, you'll need to modify the server_setup.sh script
-- If your IP address changes (common with dynamic IPs from ISPs), you'll need to update the firewall rules
-- Without proper firewall configuration, your server may be vulnerable to unauthorized access
 
 ## Usage
 
